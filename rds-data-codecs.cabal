@@ -47,7 +47,7 @@ common doctest-discover           { build-depends: doctest-discover           >=
 common generic-lens               { build-depends: generic-lens               >= 2.2.2.0    && < 3      }
 common hedgehog                   { build-depends: hedgehog                   >= 1.4        && < 2      }
 common hedgehog-extras            { build-depends: hedgehog-extras            >= 0.6.0.2    && < 0.7    }
-common http-client                { build-depends: http-client                >= 0.5.14     && < 0.6    }
+common http-client                { build-depends: http-client                >= 0.5.14     && < 0.8    }
 common lens                       { build-depends: lens                       >= 5.2.3      && < 6      }
 common mtl                        { build-depends: mtl                        >= 2          && < 3      }
 common optparse-applicative       { build-depends: optparse-applicative       >= 0.18.1.0   && < 0.19   }
@@ -72,6 +72,9 @@ common project-config
                         -Wpartial-fields
                         -Wredundant-constraints
                         -Wunused-imports
+
+  if impl(ghc < 9.8)
+    ghc-options:        -Wno-unused-imports
 
 library
   import:               base, project-config

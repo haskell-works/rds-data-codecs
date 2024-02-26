@@ -38,7 +38,8 @@ module Data.RdsData.Decode.Row
 import Control.Monad.Except
 import Control.Monad.State
 import Data.ByteString (ByteString)
-import Data.Functor.Identity
+import Control.Monad
+import Data.Functor.Identity ( Identity )
 import Data.Int
 import Data.RdsData.Decode.Value (DecodeValue)
 import Data.RdsData.Types.Value

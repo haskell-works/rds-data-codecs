@@ -1,7 +1,7 @@
 cabal-version: 2.2
 
 name:                   rds-data-codecs
-version:                0.0.0.2
+version:                0.0.0.3
 synopsis:               Codecs for use with AWS rds-data
 description:            Codecs for use with AWS rds-data.
 category:               Data

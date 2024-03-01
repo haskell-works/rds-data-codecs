@@ -28,6 +28,7 @@ module Data.RdsData.Encode.Row
   , lazyBytestring
   , lazyText
   , timeOfDay
+  , ulid
   , utcTime
   , uuid
   , word
@@ -46,6 +47,7 @@ import Data.RdsData.Encode.Value (EncodeValue(..))
 import Data.RdsData.Types.Value
 import Data.Text (Text)
 import Data.Time
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import Data.Void
 import Data.Word
@@ -196,6 +198,10 @@ day =
 json :: EncodeRow J.Value
 json =
   column EV.json
+
+ulid :: EncodeRow ULID
+ulid =
+  column EV.ulid
 
 utcTime :: EncodeRow UTCTime
 utcTime =

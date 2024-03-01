@@ -17,23 +17,24 @@ module Data.RdsData.Decode.Array
   , integers
   , texts
 
-  , ints
-  , int8s
+  , days
   , int16s
   , int32s
   , int64s
-  , words
-  , word8s
+  , int8s
+  , ints
+  , jsons
+  , lazyTexts
+  , strings
+  , timesOfDay
+  , ulids
+  , utcTimes
+  , uuids
   , word16s
   , word32s
   , word64s
-  , lazyTexts
-  , strings
-  , jsons
-  , timesOfDay
-  , utcTimes
-  , days
-  , uuids
+  , word8s
+  , words
   ) where
 
 import Control.Applicative
@@ -42,16 +43,18 @@ import Data.RdsData.Internal.Aeson
 import Data.RdsData.Types.Array
 import Data.Text (Text)
 import Data.Time
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import Data.Word
 import Prelude hiding (maybe, null, words)
 
-import qualified Data.Aeson         as J
-import qualified Data.Text          as T
-import qualified Data.Text.Encoding as T
-import qualified Data.Text.Lazy     as LT
-import qualified Data.UUID          as UUID
-import qualified Prelude            as P
+import qualified Data.Aeson                    as J
+import qualified Data.RdsData.Internal.Convert as CONV
+import qualified Data.Text                     as T
+import qualified Data.Text.Encoding            as T
+import qualified Data.Text.Lazy                as LT
+import qualified Data.UUID                     as UUID
+import qualified Prelude                       as P
 
 newtype DecodeArray a = DecodeArray
   { decodeArray :: Array -> Either Text a
@@ -194,6 +197,16 @@ days = do
   case traverse (parseTimeM True defaultTimeLocale "%Y-%m-%d" . T.unpack) ts of
     Just d -> pure d
     Nothing -> DecodeArray \_ -> Left "Failed to decode Day"
+
+-- | Decode an array of ULIDs
+-- ULIDs are encoded as strings in the database and have have better database performance
+-- than UUIDs stored as strings in the database.
+ulids :: DecodeArray [ULID]
+ulids = do
+  ts <- texts
+  case traverse CONV.textToUlid ts of
+    Right u -> pure u
+    Left msg -> DecodeArray \_ -> Left $ "Failed to decode UUID: " <> msg
 
 uuids :: DecodeArray [UUID]
 uuids = do

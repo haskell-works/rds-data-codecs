@@ -11,21 +11,23 @@ module Data.RdsData.Encode.Array
   , integers
   , texts
 
-  , ints
-  , int8s
+  , days
   , int16s
   , int32s
   , int64s
-  , words
-  , word8s
+  , int8s
+  , ints
+  , jsons
+  , lazyTexts
+  , timesOfDay
+  , ulids
+  , uuids
+  , utcTimes
   , word16s
   , word32s
   , word64s
-  , lazyTexts
-  , timesOfDay
-  , days
-  , jsons
-  , utcTimes
+  , word8s
+  , words
   ) where
 
 import Data.Functor.Contravariant
@@ -34,6 +36,8 @@ import Data.RdsData.Internal.Convert
 import Data.RdsData.Types.Array (Array(..))
 import Data.Text (Text)
 import Data.Time
+import Data.ULID
+import Data.UUID
 import Data.Word
 import Prelude hiding (words)
 
@@ -135,6 +139,14 @@ days =
 jsons :: EncodeArray [J.Value]
 jsons =
   fmap jsonToText >$< texts
+
+ulids :: EncodeArray [ULID]
+ulids =
+  fmap ulidToText >$< texts
+
+uuids :: EncodeArray [UUID]
+uuids =
+  fmap uuidToText >$< texts
 
 utcTimes :: EncodeArray [UTCTime]
 utcTimes =

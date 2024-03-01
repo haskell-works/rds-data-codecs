@@ -13,6 +13,7 @@ import Data.ByteString (ByteString)
 import Data.RdsData.Internal.Aeson ()
 import Data.Text (Text)
 import Data.Time (Day, TimeOfDay(..), UTCTime)
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import GHC.Generics
 
@@ -43,6 +44,7 @@ data Record = Record
   , times               :: TimeOfDay
   , timestamp           :: UTCTime
   , timestamps          :: UTCTime
+  , ulid                :: ULID
   , uuid                :: UUID
   }
   deriving (Show, Eq, Generic)

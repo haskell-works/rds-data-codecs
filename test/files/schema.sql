@@ -41,6 +41,7 @@ CREATE TABLE all_types (
   the_timestamps            timestamp(2)          not null,
   the_tsquery               tsquery               not null,
   the_tsvector              tsvector              not null,
+  the_ulid                  char(16)              not null,
   the_uuid                  uuid                  not null,
   the_xml                   xml                   not null
 )

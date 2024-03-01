@@ -25,21 +25,22 @@ module Data.RdsData.Encode.Param
   , base64
   , day
   , int
-  , int8
   , int16
   , int32
   , int64
+  , int8
   , json
   , lazyBytestring
   , lazyText
   , timeOfDay
+  , ulid
   , utcTime
   , uuid
   , word
-  , word8
   , word16
   , word32
   , word64
+  , word8
   ) where
 
 import Control.Lens
@@ -52,6 +53,7 @@ import Data.RdsData.Types.Value
 import Data.RdsData.Types.Param
 import Data.Text (Text)
 import Data.Time
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import Data.Word
 import Prelude hiding (maybe, null)
@@ -188,6 +190,10 @@ day =
 json :: EncodeParam J.Value
 json =
   CONV.jsonToText >$< text & typed AWS.TypeHint_JSON
+
+ulid :: EncodeParam ULID
+ulid =
+  CONV.ulidToText >$< text
 
 utcTime :: EncodeParam UTCTime
 utcTime =

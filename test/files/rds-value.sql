@@ -49,5 +49,6 @@ INSERT INTO all_types (
   '12:34:56.78',                          -- the_times
   '2024-02-04 12:34:56',                  -- the_timestamp
   '2024-02-04 12:34:56',                  -- the_timestamps
+  '0123456789ABCDEFGHJKMNPQRS',           -- the_ulid
   '550e8400-e29b-41d4-a716-446655440000'  -- the_uuid
 );

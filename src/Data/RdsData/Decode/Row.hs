@@ -25,6 +25,7 @@ module Data.RdsData.Decode.Row
   , lazyBytestring
   , timeOfDay
   , day
+  , ulid
   , utcTime
   , uuid
   , ignore
@@ -45,16 +46,18 @@ import Data.RdsData.Decode.Value (DecodeValue)
 import Data.RdsData.Types.Value
 import Data.Text
 import Data.Time
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import Data.Word
 import Prelude hiding (maybe)
 
-import qualified Data.Aeson                 as J
-import qualified Data.ByteString.Lazy       as LBS
-import qualified Data.RdsData.Decode.Value  as DV
-import qualified Data.Text                  as T
-import qualified Data.Text.Lazy             as LT
-import qualified Data.UUID                  as UUID
+import qualified Data.Aeson                    as J
+import qualified Data.ByteString.Lazy          as LBS
+import qualified Data.RdsData.Decode.Value     as DV
+import qualified Data.RdsData.Internal.Convert as CONV
+import qualified Data.Text                     as T
+import qualified Data.Text.Lazy                as LT
+import qualified Data.UUID                     as UUID
 
 newtype DecodeRow a = DecodeRow
   { unDecodeRow :: ExceptT Text (StateT [Value] Identity) a
@@ -178,6 +181,13 @@ timeOfDay = do
   case parseTimeM True defaultTimeLocale "%H:%M:%S%Q" (T.unpack t) of
     Just a -> pure a
     Nothing -> throwError $ "Failed to parse TimeOfDay: " <> T.pack (show t)
+
+ulid :: DecodeRow ULID
+ulid = do
+  t <- text
+  case CONV.textToUlid t of
+    Right a -> pure a
+    Left msg -> throwError $ "Failed to parse ULID: " <> msg
 
 utcTime :: DecodeRow UTCTime
 utcTime = do

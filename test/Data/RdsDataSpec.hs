@@ -69,6 +69,7 @@ hprop_stub = H.propertyOnce $ do
             <*> DEC.timeOfDay
             <*> DEC.utcTime
             <*> DEC.utcTime
+            <*> DEC.ulid
             <*> DEC.uuid
         values
     >>= either (\s -> H.noteShow_ s >> H.failure) pure
@@ -99,6 +100,7 @@ hprop_stub = H.propertyOnce $ do
       , TT.times              = TimeOfDay 12 34 56.78
       , TT.timestamp          = read "2024-02-04 12:34:56 UTC"
       , TT.timestamps         = read "2024-02-04 12:34:56 UTC"
+      , TT.ulid               = read "0123456789ABCDEFGHJKMNPQRS"
       , TT.uuid               = read "550e8400-e29b-41d4-a716-446655440000"
       }
     ]
@@ -132,6 +134,7 @@ hprop_stub2 = H.propertyOnce $ do
       , TT.times              = TimeOfDay 12 34 56.78
       , TT.timestamp          = read "2024-02-04 12:34:56 UTC"
       , TT.timestamps         = read "2024-02-04 12:34:56 UTC"
+      , TT.ulid               = read "0123456789ABCDEFGHJKMNPQRS"
       , TT.uuid               = read "550e8400-e29b-41d4-a716-446655440000"
       }
 

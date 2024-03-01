@@ -86,6 +86,7 @@ INSERT INTO all_types (
   '2024-02-04 12:34:56',                  -- the_timestamps
   to_tsquery('english', 'query'),         -- the_tsquery
   to_tsvector('english', 'document'),     -- the_tsvector
+  '0123456789ABCDEFGHJKMNPQRS',           -- the_ulid
   '550e8400-e29b-41d4-a716-446655440000', -- the_uuid
   '<root><element>data</element></root>'  -- the_xml
 );

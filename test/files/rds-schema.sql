@@ -23,5 +23,6 @@ CREATE TABLE all_types (
   the_times                 time(2)               not null,
   the_timestamp             timestamp             not null,
   the_timestamps            timestamp(2)          not null,
-  the_uuid                  uuid                  not null
+  the_uuid                  uuid                  not null,
+  the_ulid                  char(16)              not null
 )

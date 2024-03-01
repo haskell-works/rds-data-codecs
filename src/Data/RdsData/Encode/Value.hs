@@ -27,6 +27,7 @@ module Data.RdsData.Encode.Value
   , lazyText
   , timeOfDay
   , utcTime
+  , ulid
   , uuid
   , word
   , word8
@@ -42,6 +43,7 @@ import Data.RdsData.Encode.Array
 import Data.RdsData.Types.Value
 import Data.Text (Text)
 import Data.Time
+import Data.ULID (ULID)
 import Data.UUID (UUID)
 import Data.Word
 import Prelude hiding (maybe, null)
@@ -173,6 +175,10 @@ json =
 utcTime :: EncodeValue UTCTime
 utcTime =
   CONV.utcTimeToText >$< text
+
+ulid :: EncodeValue ULID
+ulid =
+  CONV.ulidToText >$< text
 
 uuid :: EncodeValue UUID
 uuid =

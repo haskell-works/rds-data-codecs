@@ -28,11 +28,6 @@ source-repository head
   type:                 git
   location:             https://github.com/haskell-works/rds-data-codecs
 
-flag bounds-checking-enabled
-  description:          Enable bmi2 instruction set
-  manual:               False
-  default:              False
-
 common base                       { build-depends: base                       >= 4.11       && < 5      }
 
 common aeson                      { build-depends: aeson                      >= 2.2        && < 2.3    }
